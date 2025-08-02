@@ -9,7 +9,11 @@ def main():
 
     img = Img(args.fp)
     image_utils.split_image_and_save(
-        img, (args.w, args.h), args.save_path, args.extension
+        img,
+        (args.w, args.h),
+        args.save_path,
+        args.extension,
+        getattr(args, 'skip_partial', False)
     )
 
 

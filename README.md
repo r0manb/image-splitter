@@ -21,8 +21,13 @@ python main.py <path_to_image> <width> <height>
 ### Расширенное использование
 
 ```bash
-python main.py <path_to_image> <width> <height> -sp <save_path> -ext <extension>
+python main.py <path_to_image> <width> <height> [options]
 ```
+
+**Опции:**
+- `-sp <save_path>` - путь для сохранения
+- `-ext <extension>` - формат выходных файлов
+- `--skip-partial` - пропускать обрезанные изображения
 
 ### Примеры
 
@@ -41,7 +46,12 @@ python main.py ./test.jpg 100 100 -sp ./sub_images
 python main.py ./test.jpg 100 100 -sp ./output -ext png
 ```
 
-**Примечание**: Все под-изображения будут сохранены, включая те, что на краях могут быть меньше заданного размера.
+Пропустить обрезанные изображения (неполного размера):
+```bash
+python main.py ./test.jpg 100 100 --skip-partial
+```
+
+**Примечание**: По умолчанию все под-изображения сохраняются, включая обрезанные на краях.
 
 ## Аргументы
 
@@ -52,6 +62,7 @@ python main.py ./test.jpg 100 100 -sp ./output -ext png
 | `height` | ✅ | Высота под-изображения |
 | `-sp`, `--save_path` | ❌ | Папка для сохранения (по умолчанию: текущая директория) |
 | `-ext`, `--extension` | ❌ | Формат выходных файлов (по умолчанию: как у исходного) |
+| `--skip-partial` | ❌ | Пропускать обрезанные изображения (флаг) |
 
 ## Технические детали
 

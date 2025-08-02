@@ -17,5 +17,10 @@ def parse_args():
     parser.add_argument(
         "-ext", "--extension", type=str, help="Расширение под-изображения"
     )
+    parser.add_argument(
+        "--skip-partial",
+        action="store_true",
+        help="Пропускать под-изображения неполного размера (обрезки)"
+    )
 
     return parser.parse_args()

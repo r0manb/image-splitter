@@ -13,6 +13,7 @@ def split_image_and_save(
     subimage_size: Tuple[int, int],
     save_path: str = "",
     ext: Optional[str] = None,
+    skip_partial: bool = False,
 ) -> None:
     if not ext:
         ext = img.extension
@@ -20,12 +21,14 @@ def split_image_and_save(
     if save_path and not os.path.exists(save_path):
         os.makedirs(save_path, exist_ok=True)
 
-    images = split_image(img.image, subimage_size)
+    images = split_image(img.image, subimage_size, skip_partial)
     for i, sub_img in enumerate(images):
         sub_img.save(f"{save_path}/{i}.{ext}")
 
 
-def split_image(img: Image.Image, subimage_size: Tuple[int, int]) -> List[Image.Image]:
+def split_image(
+    img: Image.Image, subimage_size: Tuple[int, int], skip_partial: bool = False
+) -> List[Image.Image]:
     images = []
     w, h = img.size
     sub_w, sub_h = subimage_size
@@ -34,6 +37,9 @@ def split_image(img: Image.Image, subimage_size: Tuple[int, int]) -> List[Image.
         for x1 in range(0, w, sub_w):
             x2 = min(x1 + sub_w, w)
             y2 = min(y1 + sub_h, h)
+
+            if skip_partial and (x2 - x1 < sub_w or y2 - y1 < sub_h):
+                continue
 
             sub_img = img.crop((x1, y1, x2, y2))
             images.append(sub_img)
