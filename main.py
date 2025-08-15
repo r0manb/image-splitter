@@ -7,7 +7,7 @@ from cli import parse_args
 def main():
     args = parse_args()
 
-    img = Img(args.fp)
+    img = Img.from_file(args.fp)
     image_utils.split_image_and_save(
         img,
         (args.w, args.h),
